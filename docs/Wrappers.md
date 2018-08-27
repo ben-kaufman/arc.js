@@ -1,4 +1,4 @@
-# Using Arc Contract Wrappers
+# Arc Contract Wrappers
 
 ## Overview
 
@@ -203,3 +203,4 @@ const avatarTruffleContract = await Utils.requireContract("Avatar");
 
 !!! info
     `Utils.requireContract` throws an exception when there is any problem creating the truffle contract object.
+

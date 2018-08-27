@@ -178,6 +178,7 @@ pages:
   - GPExecuteProposalEventResult : 'api/interfaces/GPExecuteProposalEventResult.md'
   - HasContract : 'api/interfaces/HasContract.md'
   - IBurnableTokenWrapper : 'api/interfaces/IBurnableTokenWrapper.md'
+  - IConfigService : 'api/interfaces/IConfigService.md'
   - IContractWrapperBase : 'api/interfaces/IContractWrapperBase.md'
   - IContractWrapperFactory : 'api/interfaces/IContractWrapperFactory.md'
   - IErc827TokenWrapper : 'api/interfaces/IErc827TokenWrapper.md'

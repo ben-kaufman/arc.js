@@ -365,11 +365,12 @@ export interface WrapperFilter {
 
 export interface WrapperServiceInitializeOptions {
   /**
-   * Option filter to only initialize the contracts whose name is set to true.
-   * Any that are omitted or set to false here will appear as `null` in
-   * WrapperService.wrappers and WrapperService.wrappersByType,
-   * and will not be available in WrapperService.wrappersByAddress.
-   * But their factories will still be available in WrapperService.factories.
+   * Optional filter to only initialize the contracts whose name is set to `true`.
+   * Any contracts that are omitted or set to `false` here will appear as `null` in
+   * `WrapperService.wrappers` and `WrapperService.wrappersByType`,
+   * and will not be available in `WrapperService.wrappersByAddress`.
+   * But their factories will still be available in `WrapperService.factories`.
+   * See [Optimized Contract Loading](Wrappers#optimizedcontractloading) for more information.
    */
   filter?: WrapperFilter;
 }
