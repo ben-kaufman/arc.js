@@ -53,7 +53,7 @@ Now you are ready to handle "TxTracking.DAO.new" events whenever you call `DAO.n
 
 To let you know in advance the expected count of transactions, a single "kick-off" event is published at the beginning of each function invocation and before any transactions have begun.  In that event, `txEventInfo.tx` will be null.  The property `txEventInfo.uniqueInvocationKey` uniquely identifies the "thread" of events associated with a single function at the root of an invocation.
 
-You can supply anything you want in the options passed to the invoked function.  The entire object will be passed back to you in the event callback (`txEventInfo.options`, above). For example, you may desire a tighter coupling between the events and a specific function invocation, so for you the kick-off event and invocationKey may not suffice.  In that case you could generate a key like this:
+You can supply anything you want in the options passed to the invoked function.  The entire object will be passed back to you in the event callback (`txEventInfo.options`, above). For example, you may desire a tighter coupling between the events and a specific function invocation, so for you the invocationKey not given to you until the `kickoff` event may not suffice.  In that case you might want to add a property to the `options` object in advance of calling the wrapper function, and use this property as your unique invocation key.  You can create this key however you want, one way being to use the same function that `TransactionService` uses:
 
 ```javascript
 options.myInvocationkey = TransactionService.generateInvocationKey();
