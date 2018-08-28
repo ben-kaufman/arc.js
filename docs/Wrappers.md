@@ -155,14 +155,16 @@ Arc.js doesn't wrap every Arc contact nor give you a helper class for everything
 
 ### Truffle Contracts and Web3
 
- Under the hood Arc.js uses Truffle contracts and Web3, and when you find that Arc.js doesn't directly provide you a piece of information or functionality that you need, you might be able to use them to find what you want.  You can get Web3 via [Utils.getWeb3](/api/classes/Utils#getWeb3) and Truffle contract associated with each contract wrapper instance via the `contract` property on each wrapper class.
+ Under the hood Arc.js uses Truffle contracts and `Web3`. Wwhen you find that Arc.js doesn't directly provide you a piece of information or functionality that you need, you might be able to use them to find what you want.  You can obtain `Web3` via [Utils.getWeb3](/api/classes/Utils#getWeb3) and the Truffle contract associated with each contract wrapper instance via the `contract` property on each wrapper class.
 
-!!! info
-    Read more about [Truffle Contracts](https://github.com/trufflesuite/truffle-contract) and [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API)
+!!! info "More on `Web3` and Truffle contracts
+    - [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API)
+    - [Truffle contracts](https://github.com/trufflesuite/truffle-contract)
 
 ### Undeployed Arc Contracts
 
 Some Arc contracts are wrapped but not deployed by Arc.js, for example `DaoToken` and others.  `ContractWrappers` (`WrapperService.wrappers`) will not contain entries for these wrappers since they are not deployed.  But you will find their factories where you can use `.at`. or `.new`.
+
 ### Unwrapped Arc Contracts
 
 Not all Arc contracts have been given wrapper classes, for example, `Avatar`, `UController` and many more.  But using `Utils.requireContract` you can obtain a raw [Truffle contract](https://github.com/trufflesuite/truffle-contract) for any contract, enabling you to work with the contract just by providing the name of the Arc contract:
