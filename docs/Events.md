@@ -1,73 +1,12 @@
 # Working with Events
 
-Arc.js offers two types of event systems:  [Pub/Sub](#pubsubevents) and [Web3](web3events).  The Pub/Sub system enables you to subscribe to various events published by Arc.js itself (or even by your own application if you want).
+Arc.js offers two types of event systems, [Web3](web3events) and [Pub/Sub](#pubsubevents):
 
-The Web3 system enables you to get and watch events as they originate from Web3 and Arc contracts.
+- **Web3 Events** enable you to get and watch events as they originate from Web3 and Arc contracts.    The Web3 events system also contains a hybrid of the two systems, enabling you to watch a Web3 event by subscribing to a Pub/Sub event.
 
-The Web3 events system also contains a hybrid of the two systems, enabling you to watch a Web3 event by subscribing to a Pub/Sub event.
+- **Pub/Sub Events** enable you to subscribe to various events published by Arc.js itself (or even by your own application if you want).
 
-<a name="pubsubevents"></a>
-## Pub/Sub Events
-
-The [PubSubEventService](api/classes/PubSubEventService) provides a Pub/Sub event system that enables you to subscribe to various events published by Arc.js (or even by your own application if you want).
-
-
-Uses of pub/sub events:
-
-* Tracking transactions as they complete  (see [Transactions](Transactions)).
-
-* Being notified whenever the current account changes (see [Account Changes](Configuration#accountchanges)).
-
-* Watching events in the Web3 event system using the `subscribe` function implemented by [EventFetcher](api/interfaces/EventFetcher/) and [EntityFetcher](api/interfaces/EntityFetcher/) (see [Pub/Sub Web3 Events](#pubsubweb3))
-
-The following section describes how to subscribe to events.
-
-<a name="subscribing"></a>
-### Subscribing to Pub/Sub Events
-You specify the event to which you want to subscribe using a string called the event "topic".
-
-Event topics may be hierachically scoped by levels separated by periods ('.'). So for example: 
-   
-   - "A.B.C" subscribes to all "A.B.C" events
-   - "A.B" subscribes to all events prefixed by "A.B"
-   - "A" subscribes to all events prefixed by "A"
-
-Use `PubSubEventService` like this:
-
-```javascript
-const subscription = PubSubEventService.subscribe("aTopic", (topic, payload) =>
-{
-  console.log(`received event ${topic}` with: ${payload.someImportantProperty});
-})
-```
-
-You can subscribe to multiple events at once by passing the topics in an array:
-
-```javascript
-const subscription = PubSubEventService.subscribe(
-  ["aTopic 1", "aTopic 2"], (topic, payload) =>
-{
-  console.log(`received event ${topic}` with: ${payload.someImportantProperty});
-})
-```
-
-When you are done, be sure to unsubscribe to the event(s) or you risk memory leaks and excessive CPU usage:
-
-```javascript
-subscription.unsubscribe();
-```
-
-Or unsubscribe by topic: 
-
-```javascript
-PubSubEventService.unsubscribe("aTopic");
-```
-
-Or by the callback you passed in when you subscribed:
-
-```javascript
-PubSubEventService.unsubscribe(aCallback);
-```
+The following sections describe how you can use these two types of events.
 
 <a name="web3events"></a>
 ## Web3 Events
@@ -168,7 +107,7 @@ When you specify the topic for such a subscription you are effectively creating 
 
 See more about how to use Pub/Sub events [here](#subscribing).
 
-## Comparing Enhanced Web3 with Entity for Web3 Event Fetchers
+### Comparing Enhanced Web3 with Entity for Web3 Event Fetchers
 Enhanced Web3 ([EventFetcherFactory](api/README/#eventfetcherfactory)) and entity ([EntityFetcherFactory](api/README/#entityfetcherfactory)) events each have relative pros and cons.  
 
 Enhanced Web3 events give you all of the information that Web3 provides about an event.  These events closely match what you may be accustomed-to if you have been working with Web3 and Truffle.
@@ -179,3 +118,66 @@ Otherwise there is little difference between the two.   They both enjoy the enha
 
 !!! note
     If you prefer to use the unenhanced events supplied by Web3 via Truffle, you can access them via the contract handler property `contract`, which is the original [Truffle contract](http://truffleframework.com/docs/getting_started/contracts).
+
+<a name="pubsubevents"></a>
+## Pub/Sub Events
+
+The [PubSubEventService](api/classes/PubSubEventService) provides a Pub/Sub event system that enables you to subscribe to various events published by Arc.js (or even by your own application if you want).
+
+
+Uses of pub/sub events:
+
+* Tracking transactions as they complete  (see [Transactions](Transactions)).
+
+* Being notified whenever the current account changes (see [Account Changes](Configuration#accountchanges)).
+
+* Watching events in the Web3 event system using the `subscribe` function implemented by [EventFetcher](api/interfaces/EventFetcher/) and [EntityFetcher](api/interfaces/EntityFetcher/) (see [Pub/Sub Web3 Events](#pubsubweb3))
+
+The following section describes how to subscribe to events.
+
+<a name="subscribing"></a>
+### Subscribing to Pub/Sub Events
+You specify the event to which you want to subscribe using a string called the event "topic".
+
+Event topics may be hierachically scoped by levels separated by periods ('.'). So for example: 
+   
+   - "A.B.C" subscribes to all "A.B.C" events
+   - "A.B" subscribes to all events prefixed by "A.B"
+   - "A" subscribes to all events prefixed by "A"
+
+Use `PubSubEventService` like this:
+
+```javascript
+const subscription = PubSubEventService.subscribe("aTopic", (topic, payload) =>
+{
+  console.log(`received event ${topic}` with: ${payload.someImportantProperty});
+})
+```
+
+You can subscribe to multiple events at once by passing the topics in an array:
+
+```javascript
+const subscription = PubSubEventService.subscribe(
+  ["aTopic 1", "aTopic 2"], (topic, payload) =>
+{
+  console.log(`received event ${topic}` with: ${payload.someImportantProperty});
+})
+```
+
+When you are done, be sure to unsubscribe to the event(s) or you risk memory leaks and excessive CPU usage:
+
+```javascript
+subscription.unsubscribe();
+```
+
+Or unsubscribe by topic: 
+
+```javascript
+PubSubEventService.unsubscribe("aTopic");
+```
+
+Or by the callback you passed in when you subscribed:
+
+```javascript
+PubSubEventService.unsubscribe(aCallback);
+```
