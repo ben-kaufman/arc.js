@@ -190,7 +190,7 @@ export interface SchemeWrapper {
 export { DecodedLogEntryEvent, TransactionReceipt } from "web3";
 
 /**
- * The value of the global config setting `gasPriceAdjustment`
+ * The value of the global config setting `gasPriceAdjustor`
  * This function will be invoked to obtain promise of a desired gas price
  * given the current default gas price which will be determined by the x latest blocks
  * median gas price.

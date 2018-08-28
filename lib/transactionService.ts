@@ -130,6 +130,15 @@ export class TransactionService extends PubSubEventService {
   /**
    * Return a new event stack with the given one pushed onto it.
    * Will take obj.txEventContext, else create a new one.
+   * 
+   * Every transaction-generating function must invoke `newTxEventContext` to
+   * define its own context. Whenever a transaction-generating function invokes
+   * another transaction-generating function, it must add its `TxEventContext`
+   * to the `options` object that it passes to the "nested" call
+   * (see `TxGeneratingFunctionOptions`).
+   * 
+   * Every transaction-generating function must assume that it may be a nested call,
+   * that is, that the `options` object passed-into it may conform to `TxGeneratingFunctionOptions` 
    *
    * @hidden - for internal use only
    * @param obj
@@ -647,6 +656,9 @@ export class TxEventContext {
 }
 
 /**
+ * Arc.js inserts this into the `options` object that the
+ * user has passed into the transaction-generating wrapper function.
+ * 
  * @hidden - for internal use only
  */
 export class TxEventSpec {
