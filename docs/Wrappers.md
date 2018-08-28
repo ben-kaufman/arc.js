@@ -155,9 +155,9 @@ Arc.js doesn't wrap every Arc contact nor give you a helper class for everything
 
 ### Truffle Contracts and Web3
 
- Under the hood Arc.js uses Truffle contracts and `Web3`. Wwhen you find that Arc.js doesn't directly provide you a piece of information or functionality that you need, you might be able to use them to find what you want.  You can obtain `Web3` via [Utils.getWeb3](/api/classes/Utils#getWeb3) and the Truffle contract associated with each contract wrapper instance via the `contract` property on each wrapper class.
+ Under the hood Arc.js uses Truffle contracts and `Web3`. When you find that Arc.js doesn't directly provide you a piece of information or functionality that you need, you might be able to use them to find what you want.  You can obtain `Web3` via [Utils.getWeb3](/api/classes/Utils#getWeb3) and the Truffle contract associated with each contract wrapper instance via the `contract` property on each wrapper class.
 
-!!! info "More on `Web3` and Truffle contracts
+!!! info "More on `Web3` and Truffle contracts"
     - [Web3](https://github.com/ethereum/wiki/wiki/JavaScript-API)
     - [Truffle contracts](https://github.com/trufflesuite/truffle-contract)
 

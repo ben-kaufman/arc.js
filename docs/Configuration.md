@@ -1,5 +1,5 @@
 # Configuring Arc.js Behavior and Special Features
-You may configure Arc.js behavior and several extra features using the [ConfigService](/api/classes/ConfigService).  Default configuration settings for Arc.js are contained in the `config/default.json` file.  The following section describes available features, settings and their default values.
+You may configure Arc.js behavior and several special features using the [ConfigService](/api/classes/ConfigService).  Default configuration settings for Arc.js are contained in the `config/default.json` file.  The following section describes available features, settings and their default values.
 
 ## Available Configuration Settings
 
