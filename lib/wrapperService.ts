@@ -275,7 +275,7 @@ export class WrapperService {
   /**
    * Returns the promise of an Arc.js contract wrapper or undefined if not found.
    *
-   * Most useful when you have both contract name and address and wish to most
+   * Most useful when you have both contract name and maybe the address and wish to most
    * efficiently return the associated wrapper, or undefined when not found.
    *
    * @param contractName - name of an Arc contract, like "SchemeRegistrar"

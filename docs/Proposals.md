@@ -23,6 +23,23 @@ Schemes are registered with a DAO's controller enabling them to access the contr
     - [Universal Schemes in Arc](https://daostack.github.io/arc/contracts/universalSchemes/README/)
     
 
+### Obtain a scheme's parameters
+
+If you want to obtain a DAO scheme's parameters, you can do it like this:
+
+```javascript
+const schemeParameters = schemeWrapper.getSchemeParameters(avatarAddress);
+```
+
+This will return an object containing the scheme's parameter values.  The object will be the same as that which one passes to `schemeWrapper.setParameters` when setting parameters on any contract.
+
+For example, to obtain the voting machine address for a scheme that has `votingMachineAddress` as a parameter:
+
+```javascript
+const schemeParameters = schemeWrapper.getSchemeParameters(avatarAddress);
+const votingMachineAddress = schemeParameters.votingMachineAddress;
+```
+
 <a name="proposals"></a>
 ## Proposals
 As ideas emerge from a DAO's community they can be submitted as proposals to the DAO using a DAO scheme. Proposals are then subject to a vote that proceeds according to the rules of the scheme's [voting machine](#votingmachines). The voting machine and its configuration were supplied to the scheme when the scheme was registered with the DAO's controller.
