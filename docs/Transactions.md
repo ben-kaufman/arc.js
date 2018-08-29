@@ -121,7 +121,7 @@ ConfigService.set("txDepthRequiredForConfirmation.live", 6);
 ## Transaction Logs
 You can obtain information from a `TransactionReceiptTruffle` or `TransactionReceipt` using [TransactionService.getValueFromLogs](/api/classes/TransactionService#getValueFromLogs):
 
-```
+```javascript
 const txResult = await someWrapper.aTxGeneratingFunction();
 
 const minedTransactionReceipt = await txResult.watchForTxMined();

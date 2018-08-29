@@ -101,7 +101,7 @@ When we register a universal scheme against a controller we are basically regist
 Here is an example that lets `UpgradeScheme` know about a set of parameter values, implying that we are going to be registering the scheme against a controller and with the given set of parameters:
 
 ```javascript
-const paramsHash = await await upgradeSchemeWrapper.setParameters({
+const paramsHash = await upgradeSchemeWrapper.setParameters({
   voteParametersHash: aHash,
   votingMachineAddress: anAddress
 });
@@ -114,7 +114,7 @@ const paramsHash = await await upgradeSchemeWrapper.setParameters({
 If you want to obtain a universal scheme's parameters as registered against a given DAO's controller, use `getSchemeParameters`:
 
 ```javascript
-const schemeParameters = upgradeSchemeWrapper.getSchemeParameters(avatarAddress);
+const schemeParameters = await upgradeSchemeWrapper.getSchemeParameters(avatarAddress);
 const votingMachineAddress = schemeParameters.votingMachineAddress;
 ```
 

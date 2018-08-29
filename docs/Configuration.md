@@ -13,7 +13,6 @@ Automatically approve token transfers for operations that require the sender pay
 The voting machine used by default by `Dao.new` when creating new DAOs.  Default is "AbsoluteVote".
 
 **estimateGas**
-
 Set this to `true` to have Arc.js estimate the gas cost of each transaction.  See [Estimating Gas Limits](#gaslimits).
 
 **foundersConfigurationLocation**
