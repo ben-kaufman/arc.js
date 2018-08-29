@@ -27,7 +27,7 @@ Arc.js enhances these events in several ways:
 - The callback to `get` is invoked once for the entire array of fired events, always returning an array.  The callback to `watch` is invoked once for each value, always returning the event.
 - The `get` method directly returns a promise of an array containing every event fetched, bypassing the need for a callback.
 - Optionally you can use `subscribe` instead of `watch` to use the Pub/Sub event mechanism as an alternate means of watching events as they fire. See [Pub/Sub Web3 Events](#pubsubweb3).
-- You need not worry about duplicate events, Arc.js eliminates them.  (Duplicate events can occur while the chain is still in the process of reorganizing, a feature that can be suppressed if desired).
+- You need not worry about duplicate events, Arc.js eliminates them.  (Duplicate events can occur while the chain is still in the process of reorganizing). This feature can be suppressed if desired when you create an `EventFetcher` (see [EventFetcherFilterObject](/api/interfaces/EventFetcherFilterObject)).
 
 The enhanced event functionality is provided by [Web3EventService.createEventFetcherFactory(...)](api/classes/Web3EventService#createEventFetcherFactory) which returns an [EventFetcherFactory](api/README/#eventfetcherfactory) function which returns an [EventFetcher](api/interfaces/eventfetcher) which gives you the `get`, `watch` and `subscribe` methods.
 
