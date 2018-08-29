@@ -12,7 +12,7 @@ It all starts with "scheme" contracts that can generate proposals and supply a v
 <a name="schemes"></a>
 ## Schemes
 
-Schemes are public-facing contracts that any agent may use when they want perform primary functions relating to a particular DAO.
+Schemes in general are public-facing contracts that any agent may use when they want perform primary functions relating to a particular DAO.
 
 Schemes are registered with a DAO's controller enabling them to access the controller's functionality.  Schemes can be "universal", which means that a single contract instance can serve multiple DAOs by storing DAO-specific parameters with the DAO's controller.  The implementation of a certain interface is what identifies a scheme as "universal".  Some schemes have the ability to create proposals and thus require that a configured voting machine be specified in the scheme's parameters.
 
@@ -22,24 +22,6 @@ Schemes are registered with a DAO's controller enabling them to access the contr
     - [Obtaining a list of schemes registered with a DAO](Daos#gettingDaoSchemes)
     - [Universal Schemes in Arc](https://daostack.github.io/arc/contracts/universalSchemes/README/)
     
-
-### Obtain a scheme's parameters
-
-If you want to obtain a DAO scheme's parameters, you can do it like this:
-
-```javascript
-const schemeParameters = schemeWrapper.getSchemeParameters(avatarAddress);
-```
-
-This will return an object containing the scheme's parameter values.  The object will be the same as that which one passes to `schemeWrapper.setParameters` when setting parameters on any contract.
-
-For example, to obtain the voting machine address for a scheme that has `votingMachineAddress` as a parameter:
-
-```javascript
-const schemeParameters = schemeWrapper.getSchemeParameters(avatarAddress);
-const votingMachineAddress = schemeParameters.votingMachineAddress;
-```
-
 <a name="proposals"></a>
 ## Proposals
 As ideas emerge from a DAO's community they can be submitted as proposals to the DAO using a DAO scheme. Proposals are then subject to a vote that proceeds according to the rules of the scheme's [voting machine](#votingmachines). The voting machine and its configuration were supplied to the scheme when the scheme was registered with the DAO's controller.
@@ -53,15 +35,15 @@ The following table describes the various proposals you can create using scheme 
 
 Proposal | Scheme Wrapper Class | Scheme Method
 ---------|----------|---------
- Propose to reward an agent for contributions to the DAO | ContributionRewardWrapper | [proposeContributionReward](/api/classes/ContributionRewardWrapper#proposeContributionReward)
- Propose to add or modify a global constraint | GlobalConstraintRegistrarWrapper | [proposeToAddModifyGlobalConstraint](/api/classes/GlobalConstraintRegistrarWrapper#proposeToAddModifyGlobalConstraint)
- Propose to remove a global constraint | GlobalConstraintRegistrarWrapper | [proposeToRemoveGlobalConstraint](/api/classes/GlobalConstraintRegistrarWrapper#proposeToRemoveGlobalConstraint)
- Propose to add or modify a scheme | SchemeRegistrarWrapper | [proposeToAddModifyScheme](/api/classes/SchemeRegistrarWrapper#proposeToAddModifyScheme)
- Propose to remove a scheme | SchemeRegistrarWrapper | [proposeToRemoveScheme](/api/classes/SchemeRegistrarWrapper#proposeToRemoveScheme)
- Propose an alternative Controller for the DAO | UpgradeSchemeWrapper | [proposeController](/api/classes/UpgradeSchemeWrapper#proposeController)
- Propse an alternative UpgradeScheme | UpgradeSchemeWrapper | [proposeUpgradingScheme](/api/classes/UpgradeSchemeWrapper#proposeUpgradingScheme)
- Propose a vesting agreement | VestingSchemeWrapper | [proposeVestingAgreement](/api/classes/VestingSchemeWrapper#proposeVestingAgreement)
- Propose to vote for any proposal in another DAO | VoteInOrganizationSchemeWrapper | [proposeVoteInOrganization](/api/classes/VoteInOrganizationSchemeWrapper#proposeVoteInOrganization)
+ Propose to reward an agent for contributions to the DAO | [ContributionRewardWrapper](/api/classes/ContributionRewardWrapper) | [proposeContributionReward](/api/classes/ContributionRewardWrapper#proposeContributionReward)
+Propose to add or modify a global constraint | [GlobalConstraintRegistrarWrapper](/api/classes/GlobalConstraintRegistrarWrapper) | [proposeToAddModifyGlobalConstraint](/api/classes/GlobalConstraintRegistrarWrapper#proposeToAddModifyGlobalConstraint)
+Propose to remove a global constraint | [GlobalConstraintRegistrarWrapper](/api/classes/GlobalConstraintRegistrarWrapper) | [proposeToRemoveGlobalConstraint](/api/classes/GlobalConstraintRegistrarWrapper#proposeToRemoveGlobalConstraint)
+Propose to add or modify a scheme | [SchemeRegistrarWrapper](/api/classes/SchemeRegistrarWrapper) | [proposeToAddModifyScheme](/api/classes/SchemeRegistrarWrapper#proposeToAddModifyScheme)
+Propose to remove a scheme | [SchemeRegistrarWrapper](/api/classes/SchemeRegistrarWrapper) | [proposeToRemoveScheme](/api/classes/SchemeRegistrarWrapper#proposeToRemoveScheme)
+Propose an alternative Controller for the DAO | [UpgradeSchemeWrapper](/api/classes/UpgradeSchemeWrapper) | [proposeController](/api/classes/UpgradeSchemeWrapper#proposeController)
+Propse an alternative UpgradeScheme | [UpgradeSchemeWrapper](/api/classes/UpgradeSchemeWrapper) | [proposeUpgradingScheme](/api/classes/UpgradeSchemeWrapper#proposeUpgradingScheme)
+Propose a vesting agreement | [VestingSchemeWrapper](/api/classes/VestingSchemeWrapper) | [proposeVestingAgreement](/api/classes/VestingSchemeWrapper#proposeVestingAgreement)
+Propose to vote for any proposal in another DAO | [VoteInOrganizationSchemeWrapper](/api/classes/VoteInOrganizationSchemeWrapper) | [proposeVoteInOrganization](/api/classes/VoteInOrganizationSchemeWrapper#proposeVoteInOrganization)
 
 Each of the scheme methods listed in the table above returns a promise of an [ArcTransactionProposalResult](/api/classes/ArcTransactionProposalResult) that will contain:
 
@@ -87,8 +69,6 @@ Every scheme provides instances of `EventFetcherFactory` that correspond directl
 
 Like the schemes, the `GenesisProtocolWrapper` voting machine provides special instances of `EntityFetcherFactory` to be used for fetching events about votable and executed proposals.  The fetched entity will contain additional information relevant to the proposal that you will not get via the scheme or `IntVoteInterface` events. See [VotableGenesisProtocolProposals](/api/classes/GenesisProtocolWrapper#VotableGenesisProtocolProposals) and [ExecutedProposals](/api/classes/GenesisProtocolWrapper#ExecutedProposals).
 
-See more about voting machines below.
-
 <a name="votingmachines"></a>
 ## Voting Machines
 
@@ -111,3 +91,31 @@ The `IntVoteInterfaceWrapper` gives you the convenience of working with a voting
 - Every [method that creates a proposal](#proposalschemestable) returns an `IntVoteInterfaceWrapper` in the [ArcTransactionProposalResult](/api/classes/ArcTransactionProposalResult).
 
 - Every scheme's `EntityFetcherFactory` that returns votable proposals will supply an `IntVoteInterfaceWrapper` in the fetched entity.
+
+## Set a Universal Scheme's Parameters
+
+When we register a universal scheme against a controller we are basically registering with the controller the hash of a set of scheme parameters and giving the scheme permission to later access the controller to obtain the parameters hash.  When later we want to use the universal scheme, we will pass to it the address of the avatar we are using, enabling the scheme to obtain from the controller the hash of the parameters that we registered for the scheme.  The scheme then needs some way to turn that hash back into an object whose hash we registered with the controller.
+
+ So each scheme has a function called `setParameters` that passes the parameters object to the scheme, whereupon the scheme hashes the object and stores it internally in a Solidity `mapping` where the key is the parameters hash and the value is the object containing the parameters.  Until we do this, even if the scheme and its parameters have been registered with a controller, the scheme will not be able to find the parameters and any function requiring them will fail.
+
+Here is an example that lets `UpgradeScheme` know about a set of parameter values, implying that we are going to be registering the scheme against a controller and with the given set of parameters:
+
+```javascript
+const paramsHash = await await upgradeSchemeWrapper.setParameters({
+  voteParametersHash: aHash,
+  votingMachineAddress: anAddress
+});
+```
+
+`setParameters` will extract what it needs from your object, validate their values, and always set default values on any missing properties.  It will return an `ArcTransactionDataResult<Hash>` where the `Hash` is of the parameters.
+
+## Get a Universal Scheme's Parameters
+
+If you want to obtain a universal scheme's parameters as registered against a given DAO's controller, use `getSchemeParameters`:
+
+```javascript
+const schemeParameters = upgradeSchemeWrapper.getSchemeParameters(avatarAddress);
+const votingMachineAddress = schemeParameters.votingMachineAddress;
+```
+
+This will return an object containing the scheme's parameter values.  The object will be the same as that which one passes to `upgradeSchemeWrapper.setParameters`.

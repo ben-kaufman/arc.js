@@ -20,7 +20,6 @@ export interface IContractWrapperBase extends HasContract {
   getSchemeParametersHash(avatarAddress: Address): Promise<Hash>;
   getParametersHash(params: any): Promise<Hash>;
   getParametersArray(paramsHash: Hash): Promise<Array<any>>;
-  getController(avatarAddress: Address): Promise<any>;
 }
 
 export interface IContractWrapperFactory<TWrapper extends IContractWrapperBase> {
