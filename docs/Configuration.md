@@ -44,6 +44,10 @@ The port to use when connecting to the blockchain network at runtime.  Default i
 **providerUrl**
 The url to use when connecting to the blockchain network at runtime.  Default is http://127.0.0.1.
 
+<a name="txDepthRequiredForConfirmation"></a>
+**txDepthRequiredForConfirmation**
+The default required depth, in terms of the number of blocks that have been added to the chain since a transaction has been mined, used by certain functions in `TransactionService`.  For more information, see [Transaction Depth](Transactions#transactiondepth).
+
 ## Obtain a Configuration Setting at Runtime
 
 ```javascript

@@ -64,7 +64,7 @@ export class ArcTransactionResult {
    * Returns null if the transaction is not yet found at the required depth.
    *
    * @param requiredDepth Optional minimum block depth required to resolve the promise.
-   * Default comes from the `ConfigurationService`.
+   * Default comes from the `ConfigService`.
    */
   public async getTxConfirmed(requiredDepth?: number): Promise<TransactionReceiptTruffle | null> {
     if (!this.tx) {
@@ -95,7 +95,7 @@ export class ArcTransactionResult {
    * according to the optional `requiredDepth`.
    *
    * @param requiredDepth Optional minimum block depth required to resolve the promise.
-   * Default comes from the `ConfigurationService`.
+   * Default comes from the `ConfigService`.
    */
   public async watchForTxConfirmed(requiredDepth?: number): Promise<TransactionReceiptTruffle> {
     if (!this.tx) {

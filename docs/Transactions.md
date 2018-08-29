@@ -79,3 +79,52 @@ All transactions proceed through three stages:  sent, mined and confirmed.  In t
 You can identify the stage of the event using the `topic` parameter of the callback, or by the `txStage` property of the payload (`txEventInfo`) parameter of the callback (see the example code given in the previous section).
 
 Errors may occur at any point in the lifecycle.  When they do you will receive an event with ".failed" appended to the `topic` parameter of the callback, and the `error` property of the payload will contain the `Error` that describes what happened.  `txStage` will represent the stage at which the error occurred, and you will receive no further events on the transaction.
+
+<a name="gettingtxinfo"></a>
+## Getting Information About Transactions
+
+The `TransactionService` provides several static functions you can use to obtain information about a transaction:
+
+Function | Description
+---------|----------
+ [getMinedTransaction](/api/classes/TransactionService#getMinedTransaction) | Returns a promise of a `TransactionReceipt` if the given transaction has been mined according to the optional `requiredDepth` (default `requiredDepth` is 0)
+ [watchForMinedTransaction](/api/classes/TransactionService#watchForMinedTransaction) | Returns a promise of a `TransactionReceipt` once the given transaction has been mined according to the optional `requiredDepth` (default `requiredDepth` is 0)
+ [getConfirmedTransaction](/api/classes/TransactionService#getConfirmedTransaction) | Returns a promise of a `TransactionReceipt` if the given transaction has been confirmed according to the optional `requiredDepth` (default `requiredDepth` comes from the `ConfigService`)
+ [watchForConfirmedTransaction](/api/classes/TransactionService#watchForConfirmedTransaction) | Returns a promise of a `TransactionReceipt` once the given transaction has been confirmed according to the optional `requiredDepth` (default `requiredDepth` comes from the `ConfigService`)
+ [getTransactionDepth](/api/classes/TransactionService#getTransactionDepth) | Returns a promise of the number of blocks that have been added to the chain since the given transaction was mined.
+
+## Wrapper Functions that Generate a Transaction
+
+Contract wrapper functions that generate a promise of a transaction will return the promise of an [ArcTransactionResult](/api/classes/ArcTransactionResult) that contains methods giving you access to the functions described in [Getting Information About Transactions](#gettingtxinfo) without having to supply the transaction hash.  For example:
+
+```javascript
+import { ArcTransactionResult } from "@daostack.arc.js";
+
+  const txResult = await someWrapper.aTxGeneratingFunction();
+
+  const confirmedTransactionReceipt = await txResult.watchForTxConfirmed();
+```
+
+<a name="transactiondepth"></a>
+## Transaction Depth
+
+As described in the previous sections, you can obtain information about a transaction on the condition that it has reached a desired depth in terms of the number of blocks that have been added to the chain since the given transaction was mined.
+
+You can supply the required depth as a parameter to the function that returns the transaction information, or you can rely on the default depth that is defined by the global setting "[txDepthRequiredForConfirmation](Configuration#txDepthRequiredForConfirmation)".
+
+The `txDepthRequiredForConfirmation` setting is defined individually for each network.  For example, if you want to set the value for the "live" network:
+
+```javascript
+ConfigService.set("txDepthRequiredForConfirmation.live", 6);
+```
+
+## Transaction Logs
+You can obtain information from a `TransactionReceiptTruffle` or `TransactionReceipt` using [TransactionService.getValueFromLogs](/api/classes/TransactionService#getValueFromLogs):
+
+```
+const txResult = await someWrapper.aTxGeneratingFunction();
+
+const minedTransactionReceipt = await txResult.watchForTxMined();
+
+const avatarAddress = TransactionService.getValueFromLogs(minedTransactionReceipt, "_avatar", "eventName");
+```
