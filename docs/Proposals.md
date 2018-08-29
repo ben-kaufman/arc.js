@@ -1,4 +1,4 @@
-# Working with Proposals and Schemes
+# Working with Schemes, Proposals and Voting Machines
 
 The ability to create proposals, vote one's reputation and stake one's reputation and tokens on the outcome of a vote are fundamental to promoting coherence and collaboration within DAOs in the DAOstack ecosystem.
 

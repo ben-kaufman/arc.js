@@ -30,6 +30,8 @@ The following sections describe the basic steps for setting up Arc.js in your ap
 2. optionally migrating the Arc contracts to the testnet, necessary for Ganache but not for Kovan or MainNet.
 3. using the Arc.js code in your application
 
+We'll continue by assuming you want to run your application against Ganache.
+
 <a name="migratetoganache"></a>
 ## Set up Ganache with Arc Contracts
 
