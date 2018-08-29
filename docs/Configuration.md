@@ -188,6 +188,6 @@ And you may similarly disable it at any time.
 <a name="gasprice"></a>
 ### Setting the Gas Price
 
-Arc.js enables you to set the gas price on transactions. At any time, set the value of this gasPriceAdjustor to a function with the signature [GasPriceAdjustor](/api/README/#gaspriceadjustor).  This function takes as an argument the current default gas price which will be determined by the `x` latest blocks median gas price, where `x` is determined by the node you are using.
+Arc.js enables you to set the gas price on transactions. At any time, set the value of this gasPriceAdjustor to a function with the signature [GasPriceAdjustor](/api/README/#gaspriceadjustor).  This function takes as an argument a value for price that is computed as the median gas price across the `x` latest blocks, where `x` is determined by the node you are using.
 
-This is disabled by default.
+This feature is disabled by default.

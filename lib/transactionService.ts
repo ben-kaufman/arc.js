@@ -515,7 +515,8 @@ export class TransactionService extends PubSubEventService {
 
   /**
    * Returns the default value for required block depth defined for the current network
-   * in the Arc.js global configuration "[txDepthRequiredForConfirmation](Configuration#txDepthRequiredForConfirmation)".
+   * in the Arc.js global configuration
+   * "[txDepthRequiredForConfirmation](Configuration#txDepthRequiredForConfirmation)".
    * @param requiredDepth Overrides the default if given
    */
   public static async getDefaultDepth(requiredDepth?: number): Promise<number> {
